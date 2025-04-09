@@ -45,13 +45,9 @@ endef
 define Package/$(PKG_NAME)/postinst
 #!/bin/sh
 
-chmod +x /usr/bin/mlx4_br
-chmod +x /etc/init.d/mlx4_br
+[ -n "$${IPKG_INSTROOT}" ] && exit 0
 
-[ "${IPKG_NO_SCRIPT}" = "1" ] && exit 0
-. ${IPKG_INSTROOT}/lib/functions.sh
-default_postinst $0 $@
-ret=$?
+
 /etc/init.d/mlx4_br enable
 /etc/init.d/mlx4_br restart
 exit 0
